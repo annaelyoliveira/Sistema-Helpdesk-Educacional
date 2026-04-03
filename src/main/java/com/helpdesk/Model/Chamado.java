@@ -1,4 +1,4 @@
-package com.helpdesk.model;
+package com.helpdesk.Model;
 
 import jakarta.persistence.*;
 

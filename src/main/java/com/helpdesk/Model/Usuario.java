@@ -1,6 +1,8 @@
-package com.helpdesk.model;
+package com.helpdesk.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "usuarios")
@@ -10,8 +12,15 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    @NotBlank(message = "Este campo é Obrigatório.")
+    @Email(message = "Insira um e-mail válido.")
     private String email;
+
+    @NotBlank(message = "Preencha a senha.")
+    private String senha;
+
+    private String role;
+
 
     public Long getId() {
         return id;
@@ -21,12 +30,8 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    public String getSenha() {
+        return senha;
     }
 
     public String getEmail() {
