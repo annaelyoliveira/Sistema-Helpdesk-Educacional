@@ -1,23 +1,50 @@
-package com.helpdesk.Repository;
+package com.helpdesk.repository;
 
-import com.helpdesk.Model.Tecnico;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
+import com.helpdesk.model.Tecnico;
+
+import java.util.List;
 
 @Repository
 public class TecnicoRepository {
 
-    public  void salvar(Tecnico tecnico) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction tx = session.beginTransaction();
-        session.persist(tecnico);
-        tx.commit();
-        session.close();
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public void salvar(Tecnico tecnico) {
+        entityManager.persist(tecnico);
     }
 
-    public Tecnico  buscar(String email) {
+    public Tecnico buscarPorEmail(String email) {
+        try {
+            return entityManager.createQuery("SELECT t FROM Tecnico t WHERE t.email = :email", Tecnico.class)
+                     .setParameter("email", email)
+                     .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 
+    public Tecnico buscarPorId(Long id) {
+        return entityManager.find(Tecnico.class, id);
+    }
+
+    public List<Tecnico> listarTodos() {
+        return entityManager.createQuery("SELECT t FROM Tecnico t", Tecnico.class).getResultList();
+    }
+
+    public void atualizar(Tecnico tecnico) {
+        entityManager.merge(tecnico);
+    }
+
+    public void deletar(Long id) {
+        Tecnico tecnico = entityManager.find(Tecnico.class, id);
+        if (tecnico != null) {
+            entityManager.remove(tecnico);
+        }
     }
 }
