@@ -1,11 +1,11 @@
 package com.helpdesk;
 
-import com.helpdesk.Repository.UsuarioDAO;
-import com.helpdesk.Model.Usuario;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class Main {
-
     public static void main(String[] args) {
-
+        SpringApplication.run(Main.class, args);
     }
 }
