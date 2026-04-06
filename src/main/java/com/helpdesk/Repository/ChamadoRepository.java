@@ -1,7 +1,6 @@
 package com.helpdesk.Repository;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.*;
 import org.springframework.stereotype.Repository;
 import com.helpdesk.Model.Chamado;
 
@@ -10,41 +9,96 @@ import java.util.List;
 @Repository
 public class ChamadoRepository {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    @PersistenceUnit
+    private EntityManagerFactory entityManagerFactory;
 
     public void salvar(Chamado chamado) {
-        entityManager.persist(chamado);
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(chamado);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) entityManager.getTransaction().rollback();
+            throw new RuntimeException("Erro ao salvar chamado: " + e.getMessage());
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) entityManager.close();
+        }
     }
 
     public Chamado buscarPorId(Long id) {
-        return entityManager.find(Chamado.class, id);
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            return entityManager.find(Chamado.class, id);
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) entityManager.close();
+        }
     }
 
     public List<Chamado> listarTodos() {
-        return entityManager.createQuery("SELECT c FROM Chamado c", Chamado.class).getResultList();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            return entityManager.createQuery("SELECT c FROM Chamado c", Chamado.class).getResultList();
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) entityManager.close();
+        }
     }
 
     public List<Chamado> listarAbertos() {
-        return entityManager.createQuery("SELECT c FROM Chamado c WHERE c.status = 'ABERTO'", Chamado.class).getResultList();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            return entityManager.createQuery("SELECT c FROM Chamado c WHERE c.status = 'ABERTO'", Chamado.class).getResultList();
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) entityManager.close();
+        }
     }
 
     public List<Chamado> listarEmAndamento() {
-        return entityManager.createQuery("SELECT c FROM Chamado c WHERE c.status = 'EM_ANDAMENTO'", Chamado.class).getResultList();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            return entityManager.createQuery("SELECT c FROM Chamado c WHERE c.status = 'EM_ANDAMENTO'", Chamado.class).getResultList();
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) entityManager.close();
+        }
     }
 
     public List<Chamado> listarFinalizados() {
-        return entityManager.createQuery("SELECT c FROM Chamado c WHERE c.status = 'FINALIZADO'", Chamado.class).getResultList();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            return entityManager.createQuery("SELECT c FROM Chamado c WHERE c.status = 'FINALIZADO'", Chamado.class).getResultList();
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) entityManager.close();
+        }
     }
 
     public void atualizar(Chamado chamado) {
-        entityManager.merge(chamado);
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(chamado);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) entityManager.getTransaction().rollback();
+            throw new RuntimeException("Erro ao atualizar chamado: " + e.getMessage());
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) entityManager.close();
+        }
     }
 
     public void deletar(Long id) {
-        Chamado chamado = entityManager.find(Chamado.class, id);
-        if (chamado != null) {
-            entityManager.remove(chamado);
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            Chamado chamado = entityManager.find(Chamado.class, id);
+            if (chamado != null) {
+                entityManager.remove(chamado);
+            }
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) entityManager.getTransaction().rollback();
+            throw new RuntimeException("Erro ao deletar chamado: " + e.getMessage());
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) entityManager.close();
         }
     }
 }
