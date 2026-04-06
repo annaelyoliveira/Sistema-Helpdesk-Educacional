@@ -1,18 +1,17 @@
-package com.helpdesk.service;
+package com.helpdesk.Service;
 
-import com.helpdesk.exceptions.*;
-import com.helpdesk.model.Usuario;
-import com.helpdesk.repository.UsuarioRepository;
-
+import com.helpdesk.Exceptions.UsuarioExistenteException;
+import com.helpdesk.Exceptions.UsuarioNaoEncontradoException;
+import com.helpdesk.Model.Usuario;
+import com.helpdesk.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
 public class UsuarioService {
-    
+
     @Autowired
     private UsuarioRepository usuarioRepository;
 
@@ -35,7 +34,7 @@ public class UsuarioService {
     }
 
     @Transactional
-    public void deletar(Long id) throws UsuarioNaoEncontradoException {
-        usuarioRepository.deletar(id);
+    public Usuario deletar(Long id) throws UsuarioNaoEncontradoException {
+        return usuarioRepository.deletar(id);
     }
 }

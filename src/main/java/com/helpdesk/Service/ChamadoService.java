@@ -1,12 +1,10 @@
-package com.helpdesk.service;
+package com.helpdesk.Service;
 
-import com.helpdesk.model.Chamado;
-import com.helpdesk.model.Tecnico;
-import com.helpdesk.model.Usuario;
-import com.helpdesk.repository.ChamadoRepository;
-import com.helpdesk.repository.TecnicoRepository;
-import com.helpdesk.repository.UsuarioRepository;
-
+import com.helpdesk.Model.Chamado;
+import com.helpdesk.Model.Tecnico;
+import com.helpdesk.Repository.ChamadoRepository;
+import com.helpdesk.Repository.TecnicoRepository;
+import com.helpdesk.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

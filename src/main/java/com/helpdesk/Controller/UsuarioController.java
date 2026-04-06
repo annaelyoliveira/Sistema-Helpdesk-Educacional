@@ -1,9 +1,9 @@
-package com.helpdesk.controller;
+package com.helpdesk.Controller;
 
-import com.helpdesk.exceptions.UsuarioExistenteException;
-import com.helpdesk.exceptions.UsuarioNaoEncontradoException;
-import com.helpdesk.model.Usuario;
-import com.helpdesk.service.UsuarioService;
+import com.helpdesk.Exceptions.UsuarioExistenteException;
+import com.helpdesk.Exceptions.UsuarioNaoEncontradoException;
+import com.helpdesk.Model.Usuario;
+import com.helpdesk.Service.UsuarioService;
 
 
 
@@ -36,8 +36,8 @@ public class UsuarioController {
         try {
             Usuario usuario = usuarioService.buscarPorEmail(email);
             return ResponseEntity.ok(usuario);
-        } catch (UsuarioNaoEncontradoException e) {
-            return ResponseEntity.notFound().build();
+        }catch (UsuarioNaoEncontradoException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -54,17 +54,17 @@ public class UsuarioController {
             usuarioService.atualizar(usuario);
             return ResponseEntity.ok("Usuário atualizado");
         } catch (UsuarioNaoEncontradoException e) {
-            return ResponseEntity.notFound().build();
+            throw new RuntimeException(e);
         }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletar(@PathVariable Long id) {
         try {
-            usuarioService.deletar(id);
-            return ResponseEntity.ok("Usuário deletado");
+            Usuario usuario = usuarioService.deletar(id);
+            return ResponseEntity.ok("Usuário com email:" + usuario.getEmail()+ " deletado.");
         } catch (UsuarioNaoEncontradoException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }

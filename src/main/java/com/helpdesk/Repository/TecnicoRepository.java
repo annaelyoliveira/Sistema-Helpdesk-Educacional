@@ -1,11 +1,11 @@
-package com.helpdesk.repository;
+package com.helpdesk.Repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
-import com.helpdesk.model.Tecnico;
+import com.helpdesk.Model.Tecnico;
 
 import java.util.List;
 

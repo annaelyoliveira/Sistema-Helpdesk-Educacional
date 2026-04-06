@@ -1,9 +1,8 @@
-package com.helpdesk.repository;
+package com.helpdesk.Repository;
 
-import com.helpdesk.exceptions.UsuarioExistenteException;
-import com.helpdesk.exceptions.UsuarioNaoEncontradoException;
-import com.helpdesk.model.Usuario;
-
+import com.helpdesk.Exceptions.UsuarioExistenteException;
+import com.helpdesk.Exceptions.UsuarioNaoEncontradoException;
+import com.helpdesk.Model.Usuario;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Repository;
 
@@ -55,13 +54,14 @@ public class UsuarioRepository {
         }
     }
 
-    public void deletar(Long id) throws UsuarioNaoEncontradoException {
+    public Usuario deletar(Long id) throws UsuarioNaoEncontradoException {
         try {
             Usuario usuario = entityManager.find(Usuario.class, id);
             if (usuario == null) {
                 throw new UsuarioNaoEncontradoException("Não foi possível deletar: Usuário não encontrado.");
             }
             entityManager.remove(usuario);
+            return usuario;
         } catch (UsuarioNaoEncontradoException e) {
             throw e;
         } catch (Exception e) {

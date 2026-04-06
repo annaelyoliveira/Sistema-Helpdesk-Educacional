@@ -1,10 +1,9 @@
-package com.helpdesk.repository;
+package com.helpdesk.Repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
-
-import com.helpdesk.model.Chamado;
+import com.helpdesk.Model.Chamado;
 
 import java.util.List;
 
