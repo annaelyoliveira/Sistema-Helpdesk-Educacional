@@ -1,8 +1,8 @@
-package com.helpdesk.Repository;
+package com.helpdesk.repository;
 
 import jakarta.persistence.*;
 import org.springframework.stereotype.Repository;
-import com.helpdesk.Model.Tecnico;
+import com.helpdesk.model.Tecnico;
 import java.util.List;
 
 @Repository

@@ -1,9 +1,9 @@
-package com.helpdesk.Service;
+package com.helpdesk.service;
 
-import com.helpdesk.Exceptions.UsuarioExistenteException;
-import com.helpdesk.Exceptions.UsuarioNaoEncontradoException;
-import com.helpdesk.Model.Usuario;
-import com.helpdesk.Repository.UsuarioRepository;
+import com.helpdesk.exceptions.UsuarioExistenteException;
+import com.helpdesk.exceptions.UsuarioNaoEncontradoException;
+import com.helpdesk.model.Usuario;
+import com.helpdesk.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

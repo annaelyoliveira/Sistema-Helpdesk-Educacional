@@ -1,4 +1,4 @@
-package com.helpdesk.Exceptions;
+package com.helpdesk.exceptions;
 
 public class UsuarioNaoEncontradoException extends  Exception{
 

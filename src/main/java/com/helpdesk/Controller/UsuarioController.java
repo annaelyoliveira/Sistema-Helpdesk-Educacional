@@ -1,9 +1,9 @@
-package com.helpdesk.Controller;
+package com.helpdesk.controller;
 
-import com.helpdesk.Exceptions.UsuarioExistenteException;
-import com.helpdesk.Exceptions.UsuarioNaoEncontradoException;
-import com.helpdesk.Model.Usuario;
-import com.helpdesk.Service.UsuarioService;
+import com.helpdesk.exceptions.UsuarioExistenteException;
+import com.helpdesk.exceptions.UsuarioNaoEncontradoException;
+import com.helpdesk.model.Usuario;
+import com.helpdesk.service.UsuarioService;
 
 
 

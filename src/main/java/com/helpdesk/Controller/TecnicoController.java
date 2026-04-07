@@ -1,7 +1,7 @@
-package com.helpdesk.Controller;
+package com.helpdesk.controller;
 
-import com.helpdesk.Model.Tecnico;
-import com.helpdesk.Service.TecnicoService;
+import com.helpdesk.model.Tecnico;
+import com.helpdesk.service.TecnicoService;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
-package com.helpdesk.Repository;
+package com.helpdesk.repository;
 
-import com.helpdesk.Exceptions.UsuarioExistenteException;
-import com.helpdesk.Exceptions.UsuarioNaoEncontradoException;
-import com.helpdesk.Model.Usuario;
+import com.helpdesk.exceptions.UsuarioExistenteException;
+import com.helpdesk.exceptions.UsuarioNaoEncontradoException;
+import com.helpdesk.model.Usuario;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Repository;
 

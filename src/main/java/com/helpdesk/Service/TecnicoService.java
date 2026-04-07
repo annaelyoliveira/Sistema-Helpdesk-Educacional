@@ -1,7 +1,7 @@
-package com.helpdesk.Service;
+package com.helpdesk.service;
 
-import com.helpdesk.Model.Tecnico;
-import com.helpdesk.Repository.TecnicoRepository;
+import com.helpdesk.model.Tecnico;
+import com.helpdesk.repository.TecnicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

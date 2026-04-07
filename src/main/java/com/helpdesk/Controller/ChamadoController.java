@@ -1,7 +1,7 @@
-package com.helpdesk.Controller;
+package com.helpdesk.controller;
 
-import com.helpdesk.Model.Chamado;
-import com.helpdesk.Service.ChamadoService;
+import com.helpdesk.model.Chamado;
+import com.helpdesk.service.ChamadoService;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

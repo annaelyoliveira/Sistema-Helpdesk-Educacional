@@ -1,4 +1,4 @@
-package com.helpdesk.Model;
+package com.helpdesk.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
