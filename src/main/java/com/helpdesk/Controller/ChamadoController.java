@@ -25,7 +25,7 @@ public class ChamadoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Chamado> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<Chamado> buscarPorId(@PathVariable Long id) throws ChamadoNaoEncontradoException {
         Chamado chamado = chamadoService.buscarPorId(id);
         if (chamado != null) {
             return ResponseEntity.ok(chamado);
@@ -65,13 +65,13 @@ public class ChamadoController {
     }
 
     @PutMapping("/{id}/atribuir/{tecnicoId}")
-    public ResponseEntity<String> atribuirTecnico(@PathVariable Long id, @PathVariable Long tecnicoId) {
+    public ResponseEntity<String> atribuirTecnico(@PathVariable Long id, @PathVariable Long tecnicoId) throws ChamadoNaoEncontradoException {
         chamadoService.atribuirTecnico(id, tecnicoId);
         return ResponseEntity.ok("Técnico atribuído");
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletar(@PathVariable Long id) {
+    public ResponseEntity<String> deletar(@PathVariable Long id) throws ChamadoNaoEncontradoException {
         chamadoService.deletar(id);
         return ResponseEntity.ok("Chamado deletado");
     }

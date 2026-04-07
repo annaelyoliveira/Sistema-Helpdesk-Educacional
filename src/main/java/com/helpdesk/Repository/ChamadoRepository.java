@@ -1,5 +1,6 @@
 package com.helpdesk.repository;
 
+import com.helpdesk.exceptions.ChamadoNaoEncontradoException;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Repository;
 import com.helpdesk.model.Chamado;
@@ -26,10 +27,14 @@ public class ChamadoRepository {
         }
     }
 
-    public Chamado buscarPorId(Long id) {
+    public Chamado buscarPorId(Long id) throws ChamadoNaoEncontradoException {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
-            return entityManager.find(Chamado.class, id);
+            Chamado chamado = entityManager.find(Chamado.class, id);
+            if (chamado == null) {
+                throw new ChamadoNaoEncontradoException("O Chamado com o id " + id + " não foi encontrado.");
+            }
+            return chamado;
         } finally {
             if (entityManager != null && entityManager.isOpen()) entityManager.close();
         }
@@ -85,15 +90,19 @@ public class ChamadoRepository {
         }
     }
 
-    public void deletar(Long id) {
+    public void deletar(Long id) throws ChamadoNaoEncontradoException {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
             Chamado chamado = entityManager.find(Chamado.class, id);
-            if (chamado != null) {
-                entityManager.remove(chamado);
+            if (chamado == null) {
+                throw new ChamadoNaoEncontradoException("O Chamado com o id " + id + " não foi encontrado.");
             }
+            entityManager.remove(chamado);
             entityManager.getTransaction().commit();
+        }catch (ChamadoNaoEncontradoException e) {
+            if (entityManager.getTransaction().isActive()) entityManager.getTransaction().rollback();
+            throw e;
         } catch (Exception e) {
             if (entityManager.getTransaction().isActive()) entityManager.getTransaction().rollback();
             throw new RuntimeException("Erro ao deletar chamado: " + e.getMessage());
