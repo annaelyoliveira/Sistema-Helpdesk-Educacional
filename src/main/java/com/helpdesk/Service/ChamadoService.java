@@ -1,5 +1,6 @@
 package com.helpdesk.Service;
 
+import com.helpdesk.Exceptions.ChamadoNaoEncontradoException;
 import com.helpdesk.Model.Chamado;
 import com.helpdesk.Model.Tecnico;
 import com.helpdesk.Repository.ChamadoRepository;
@@ -28,7 +29,7 @@ public class ChamadoService {
         chamadoRepository.salvar(chamado);
     }
 
-    public Chamado buscarPorId(Long id) {
+    public Chamado buscarPorId(Long id) throws ChamadoNaoEncontradoException {
         return chamadoRepository.buscarPorId(id);
     }
 
@@ -54,12 +55,12 @@ public class ChamadoService {
     }
 
     @Transactional
-    public void deletar(Long id) {
+    public void deletar(Long id) throws ChamadoNaoEncontradoException {
         chamadoRepository.deletar(id);
     }
 
     @Transactional
-    public void atribuirTecnico(Long chamadoId, Long tecnicoId) {
+    public void atribuirTecnico(Long chamadoId, Long tecnicoId) throws ChamadoNaoEncontradoException {
         Chamado chamado = chamadoRepository.buscarPorId(chamadoId);
         Tecnico tecnico = tecnicoRepository.buscarPorId(tecnicoId);
         if (chamado != null && tecnico != null) {

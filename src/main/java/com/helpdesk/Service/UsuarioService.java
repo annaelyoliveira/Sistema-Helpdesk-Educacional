@@ -5,6 +5,7 @@ import com.helpdesk.Exceptions.UsuarioNaoEncontradoException;
 import com.helpdesk.Model.Usuario;
 import com.helpdesk.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -14,9 +15,13 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Transactional
     public void salvar(Usuario usuario) throws UsuarioExistenteException {
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        usuario.setRole("ROLE_USUARIO");
         usuarioRepository.salvar(usuario);
     }
 

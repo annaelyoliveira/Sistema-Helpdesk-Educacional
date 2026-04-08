@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>Sistema-Helpdesk</artifactId>
+    <artifactId>Sistema-Helpdesk-Security</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <parent>
@@ -48,6 +48,11 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
         <dependency>
